@@ -29,5 +29,8 @@ The Flask web application provides real-time updates of the ordered items. It is
 ## Database 📁
 The app uses an SQLite database to store completed purchase history. By doing this we achieve better performance
 
+## How to install🛠️
+Download and execute the installer under "Releases". Make sure to download the latest release.
+
 ## Contributing ➕ and Issues 🆘
 Contributions to this project are welcome. If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
