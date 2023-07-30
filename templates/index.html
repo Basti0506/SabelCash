@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabel Sommerfest 2023</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        /* CSS Styles for Main Page */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F7F7F7;
+            /* Light gray background */
+        }
+
+        header {
+            background-color: #FDCB9E;
+            /* Light coral header */
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header img {
+            height: 50px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+
+        .menu-bars {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-bar {
+            width: 25px;
+            height: 4px;
+            background-color: #FFFFFF;
+            /* White menu bar color */
+            margin-bottom: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-options {
+            position: absolute;
+            top: 55px;
+            right: 10px;
+            width: 180px;
+            background-color: #FFFFFF;
+            /* White background */
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Soft shadow */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-options.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .menu-option {
+            padding: 10px;
+            font-size: 16px;
+            color: #333333;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-option:hover {
+            background-color: #F5F5F5;
+            /* Light gray hover background */
+            color: #FDCB9E;
+            /* Light coral text color */
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            /* White container */
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Soft shadow */
+            color: #333333;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 0;
+            color: #FDCB9E;
+            /* Light coral heading color */
+            text-align: center;
+        }
+
+        p {
+            margin-top: 0;
+        }
+
+        /* Additional CSS for Cookie Popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 300px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+
+        .cookie-popup h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #4070f4;
+        }
+
+        .cookie-popup p {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .cookie-popup p a {
+            color: #1b1c1b;
+            text-decoration: none;
+        }
+
+        .cookie-popup p a:hover {
+            text-decoration: underline;
+        }
+
+        .cookie-popup .cookie-buttons {
+            margin-top: 15px;
+        }
+
+        .cookie-buttons button {
+            border: none;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .cookie-buttons #acceptBtn {
+            background-color: #FDCB9E;
+        }
+
+        .cookie-buttons #acceptBtn:hover {
+            background-color: #3ee641;
+        }
+
+        .cookie-buttons #declineBtn {
+            background-color: #fff;
+            color: #FDCB9E;
+            border: 2px solid #FDCB9E;
+        }
+
+        .cookie-buttons #declineBtn:hover {
+            background-color: #d91a1a;
+            color: #fff;
+        }
+
+        /* CSS for Search Bar */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: FDCB9E;
+            padding: 10px;
+        }
+
+        .input-box {
+            position: relative;
+            height: 40px;
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-box i,
+        .input-box .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .input-box i {
+            left: 20px;
+            font-size: 20px;
+            color: #707070;
+        }
+
+        .input-box input {
+            height: 100%;
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+            font-weight: 400;
+            border: none;
+            padding: 0 100px 0 45px;
+            background-color: transparent;
+        }
+
+        .input-box .button {
+            right: 20px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            background-color: #4070f4;
+            cursor: pointer;
+        }
+
+        .input-box .button:active {
+            transform: translateY(-50%) scale(0.98);
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 500px) {
+            .search-bar {
+                padding: 10px 5px;
+            }
+
+            .input-box {
+                height: 32px;
+                margin: 0 8px;
+            }
+
+            .input-box i {
+                left: 8px;
+                font-size: 18px;
+            }
+
+            .input-box input {
+                padding: 0 60px 0 30px;
+            }
+
+            .input-box .button {
+                right: 8px;
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main Page -->
+    <header>
+        <img src="https://nuernberg.sabel.com/wp-content/uploads/2021/03/Logo_SABEL_Nuernberg_800px.png"
+            alt="Sabel Logo">
+        <div class="search-bar">
+            <div class="input-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Nach Rezepten suchen..." />
+                <button class="button" onclick="searchRecipe()">Search</button>
+            </div>
+        </div>
+        <div class="menu-bars" id="menuBars">
+            <div class="menu-bar"></div>
+            <div class="menu-bar"></div>
+            <div class="menu-bar"></div>
+        </div>
+    </header>
+
+    <div class="menu-options" id="menuOptions">
+        <div class="menu-option" onclick="openWebApp()">Web App</div>
+        <div class="menu-option" onclick="openKassendisplay()">Kassendisplay</div>
+        <div class="menu-option" onclick="openBestellungen()">Bestellungen</div>
+    </div>
+
+    <div class="content">
+        <h2>Kaufhistorie</h2>
+        <div id="purchaseHistory">{{ history | safe }}</div>
+    </div>
+
+    <div class="content">
+        <h2>Impressum</h2>
+        <p>Bastian Horn<br>
+            Feiningerstraße 9<br>
+            90455, Nürnberg<br>
+            Deutschland<br><br>
+            Phone: 01623437462<br>
+            Email: Bastian.Horn@nbg.sabel.education</p>
+    </div>
+
+    <div class="content">
+        <h2>Datenschutz</h2>
+        <p>Wir bewahren oder verarbeiten Ihre Daten nicht. Keine Daten des Nutzers werden auf irgendeinem Server
+            gespeichert oder weiterverarbeitet</p>
+    </div>
+
+    <div class="content">
+        <h2>Rezepte</h2>
+        <ul>
+            <li>
+                <strong>Ipanema:</strong> 3 Stücke Limette 1 EL Rohrzucker ---Stößeln--- Becher mit Eis auffüllen. Auffüllen mit
+                Ginger Ale und Maracujasaft (50/50) ---Umrühren---
+            </li>
+            <li>
+                <strong>Virgin Sunrise:</strong> Becher mit Eis auffüllen 1 kleiner Schuss Zitronensaft 1 Schuss
+                Zitronensaft 1 Schuss Grenadine-Sirup Auffüllen mit Ananassaft und Orangensaft (30/70) ---Shaken---
+                Orangenscheibe zur Garnitur
+            </li>
+            <li>
+                <strong>Five-Fruit:</strong> Becher mit Eis auffüllen 1 kleiner Schuss Grenadine-Sirup Auffüllen mit
+                Maracuja-, Ananass und Orangensaft ---Shaken--- Orangenscheibe zur Garnitur
+            </li>
+            <li>
+                <strong>Virgin Mojito:</strong> 3 Stücke Limette 1 kleiner Löffel Rohrzucker 1 Schuss Lime Juice
+                ---Stößeln--- Auffüllen mit Wasser/Ginger Ale ---Umrühren---
+            </li>
+            <li>
+                <strong>Coconut Kiss:</strong> Becher mit Eis auffüllen 2 Schuss Kokos-Sirup 1 Schuss Sahne Auffüllen
+                mit Ananassaft und O-Saft (80/20) ---Shaken---
+            </li>
+        </ul>
+    </div>
+
+    <!-- Cookie Popup -->
+    <div class="cookie-popup" id="cookiePopup">
+        <h2>Magst du Cookies? 🍪</h2>
+        <p>
+            Diese Seite, und dessen Unterseiten, benutzt Cookies, um Funktionen funktionieren zu lassen
+            <a href="#"> weiterlesen...</a>
+        </p>
+        <div class="cookie-buttons">
+            <button id="acceptBtn">Gerne</button>
+            <button id="declineBtn">Lass mal...</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript Code for Menu Animation
+        const menuBars = document.getElementById('menuBars');
+        const menuOptions = document.getElementById('menuOptions');
+
+        menuBars.addEventListener('click', toggleMenu);
+
+        function toggleMenu() {
+            menuBars.classList.toggle('show');
+            menuOptions.classList.toggle('show');
+        }
+
+        function openWebApp() {
+            window.location.href = "/webapp";
+        }
+
+        function openKassendisplay() {
+            window.location.href = "/webapp2";
+        }
+
+        function openBestellungen() {
+            window.location.href = "/webapp3";
+        }
+
+        // JavaScript Code for Getting Data from "Verlauf.txt"
+        $(document).ready(function () {
+            $.get("Verlauf.txt", function (data) {
+                $("#purchaseHistory").html(data);
+            });
+        });
+
+        // JavaScript Code for Notification Prompt
+        document.addEventListener("DOMContentLoaded", () => {
+            if ("Notification" in window) {
+                if (window.location.protocol === "https:" && Notification.permission !== "denied" &&
+                    Notification.permission !== "granted") {
+                    Notification.requestPermission().then((permission) => {
+                        if (permission === "granted") {
+                            showNotification("Notification System", "You will now receive notifications from us.");
+                        }
+                    });
+                }
+            }
+        });
+
+        function showNotification(title, message) {
+            if ("Notification" in window) {
+                if (Notification.permission === "granted") {
+                    const notification = new Notification(title, {
+                        body: message,
+                    });
+                }
+            }
+        }
+
+        // JavaScript Code for Cookie Popup
+        const cookiePopup = document.getElementById('cookiePopup');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const declineBtn = document.getElementById('declineBtn');
+
+        acceptBtn.addEventListener('click', () => {
+            cookiePopup.style.display = 'none';
+            document.cookie = "cookieBy=codinglab; max-age=" + 60 * 60 * 24 * 30; // Set cookies for 1 month
+        });
+
+        declineBtn.addEventListener('click', () => {
+            cookiePopup.style.display = 'none';
+        });
+
+        // JavaScript Code for Search Recipe
+        function searchRecipe() {
+            const input = document.querySelector('.input-box input').value;
+            const recipes = document.querySelectorAll('.content ul li');
+            for (let recipe of recipes) {
+                const recipeName = recipe.textContent;
+                if (recipeName.includes(input)) {
+                    recipe.style.display = 'block';
+                } else {
+                    recipe.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

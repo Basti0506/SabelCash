@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+</head>
+<body>
+    <script>
+        // Create a WebSocket connection
+        const socket = io('http://localhost:5001');
+
+        // WebSocket connection established
+        socket.on('connect', () => {
+            console.log('WebSocket connected');
+        });
+
+        // Handle incoming messages from the server
+        socket.on('message', (data) => {
+            console.log('Received message:', data);
+            // Handle the incoming message here
+        });
+
+        // Send a message to the server
+        socket.emit('message', 'Hello server!');
+    </script>
+</body>
+</html>

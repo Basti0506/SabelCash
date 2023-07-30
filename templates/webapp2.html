@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kasse 1</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('https://www.thespruce.com/thmb/TkO0DugA_4xsgMAwA4tdgPhuO0M=/4268x0/filters:no_upscale():max_bytes(150000):strip_icc()/types-of-leaf-arrangements-3269814-03-a6b9b4775c5b47b79e14aed9a7e6ac90.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100vh;
+      animation: fadeBackground 5m linear infinite;
+    }
+
+    .title-bar {
+      background-image: linear-gradient(to bottom, rgba(253, 203, 158, 0.95) 0%, rgba(253, 203, 158, 0.7) 100%);
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 150px;
+    }
+
+    h1 {
+      color: black;
+      font-family: "Open Sans", sans-serif;
+      font-size: 24px;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .order-section {
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      height: 250px;
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 20px;
+    }
+
+    .order-title {
+      color: #333;
+      font-family: "Open Sans", sans-serif;
+      font-size: 28px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-content {
+      color: #333;
+      font-family: "Open Sans", sans-serif;
+      font-size: 18px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .order-content ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    @keyframes fadeBackground {
+      0%, 50% {
+        background-image: url('https://www.thespruce.com/thmb/TkO0DugA_4xsgMAwA4tdgPhuO0M=/4268x0/filters:no_upscale():max_bytes(150000):strip_icc()/types-of-leaf-arrangements-3269814-03-a6b9b4775c5b47b79e14aed9a7e6ac90.jpg');
+      }
+      50%, 100% {
+        background-image: url('https://d12a3lcl7jb9h2.cloudfront.net/assets/DERTOUR/blt3fa37f504682304d/6389e181c2b0cf67d0e53deb/kokosnusspalme-am-strand-g-509488176.jpg');
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    function updateOrderContent(items) {
+      var orderContentElement = document.getElementById('order-content');
+      orderContentElement.innerHTML = items;
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      var nameElement = document.getElementById('name');
+      var name = nameElement.innerHTML;
+      if (name !== '') {
+        nameElement.innerHTML = "Es bedient Sie " + name;
+      }
+
+      // Receive the updated order content from the server
+      socket.on('update_order_content', function(data) {
+        updateOrderContent(data.items);
+      });
+
+      // Refresh the page every second
+      setInterval(function() {
+        location.reload();
+      }, 1000);
+    });
+  </script>
+</head>
+<body>
+  <div class="title-bar">
+    <img src="https://nuernberg.sabel.com/wp-content/uploads/2021/03/Logo_SABEL_Nuernberg_800px.png" alt="Logo" class="logo">
+    <h1>Kasse 1 - <span id="name">{{ name }}</span></h1>
+  </div>
+
+  <div class="order-section">
+    <h2 class="order-title">Ihre Bestellung</h2>
+    <div class="order-content">
+      <ul>
+        {% for item in items %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

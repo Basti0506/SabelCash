@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App</title>
+    <style>
+        /* CSS Styles for the web app */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF3E6; /* Soft orange background */
+        }
+
+        header {
+            background-color: #FDCB9E; /* Light coral header */
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header img {
+            height: 75px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #FFFFFF; /* White container */
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-top: 0;
+            color: #33333;
+            text-align: center;
+        }
+
+        .name-input {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .name-input input {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #CCCCCC;
+        }
+
+        .name-input button {
+            flex: 0 0 120px;
+            margin-left: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #333030; /* Coral button background */
+            color: #FFFFFF; /* White text color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .name-input button:hover {
+            background-color: #FF6347; /* Tomato button background */
+        }
+
+        .name-display {
+            font-size: 18px;
+            text-align: right;
+            margin-bottom: 10px;
+            color: #333333; /* Coral text color */
+        }
+
+        .cocktail-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .cocktail-item {
+            padding: 10px;
+            background-color: #7da89f; /* Light Salmon background */
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            color: #FFFF;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cocktail-item:hover {
+            background-color: #FF6347; /* Tomato hover background */
+        }
+
+        .total-cost {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #33333; /* Coral text color */
+        }
+
+        .change-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .change-input input {
+            width: 200px;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #CCCCCC;
+        }
+
+        .change-input button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #5ced61; /* Coral button background */
+            color: #FFFFFF; /* White text color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .change-input button:hover {
+            background-color:#8fe85f; /* Tomato button background */
+        }
+
+        .return-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #e81f15; /* Coral button background */
+            color: #FFFFFF; /* White text color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .return-button:hover {
+            background-color: #FF6347; /* Tomato button background */
+        }
+
+        .connect-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .connect-buttons button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #FF7F50; /* Coral button background */
+            color: #FFFFFF; /* White text color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .connect-buttons button:hover {
+            background-color: #FF6347; /* Tomato button background */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Web App Page -->
+    <header>
+        <img src="https://nuernberg.sabel.com/wp-content/uploads/2021/03/Logo_SABEL_Nuernberg_800px.png" alt="Sabel Logo">
+        <div class="name-display" id="nameDisplay"></div>
+    </header>
+
+    <div class="container">
+        <h1>Kasse</h1>
+        <div class="name-input">
+            <input type="text" id="nameInput" placeholder="Name">
+            <button onclick="saveName()">Hinzufügen</button>
+        </div>
+        <ul class="cocktail-list" id="cocktailList">
+            <li class="cocktail-item" onclick="selectCocktail('Five Fruit')">Five Fruit</li>
+            <li class="cocktail-item" onclick="selectCocktail('Virgin Mojito')">Virgin Mojito</li>
+            <li class="cocktail-item" onclick="selectCocktail('Virgin Sunrise')">Virgin Sunrise</li>
+            <li class="cocktail-item" onclick="selectCocktail('Coconut Kiss')">Coconut Kiss</li>
+            <li class="cocktail-item" onclick="selectCocktail('Ipanema')">Ipanema</li>
+            <li class="cocktail-item" onclick="selectCocktail('Eigene Bestellung')">Eigene Bestellung</li>
+        </ul>
+        <div class="total-cost" id="totalCost">Gesamt: €0.00</div>
+        <div class="change-input">
+            <input type="number" id="amountGiven" placeholder="Gezahlter Betrag">
+            <button onclick="calculateChange()">Berechnen</button>
+        </div>
+        <button class="return-button" onclick="goBack()">Zurück</button>
+    </div>
+
+    <script>
+        const nameInput = document.getElementById('nameInput');
+        const nameDisplay = document.getElementById('nameDisplay');
+        const cocktailList = document.getElementById('cocktailList');
+        const totalCostElement = document.getElementById('totalCost');
+        const amountGivenElement = document.getElementById('amountGiven');
+
+        let selectedCocktail = null;
+        let totalCost = 0;
+
+        // Create a new WebSocket connection
+        const socket = new WebSocket('ws://localhost:5001');
+
+        // Handle incoming messages from the main screen
+        socket.addEventListener('message', function (event) {
+            const message = JSON.parse(event.data);
+            if (message.action === 'clearOrders') {
+                clearOrder();
+            }
+        });
+
+        // Send updates to the main screen
+        function sendUpdate(action, data) {
+            const message = {
+                action: action,
+                ...data
+            };
+            socket.send(JSON.stringify(message));
+        }
+
+        function selectCocktail(cocktail) {
+            selectedCocktail = cocktail;
+            totalCost += 3.50;
+            totalCostElement.textContent = `Gesamt: €${totalCost.toFixed(2)}`;
+            cocktailList.style.pointerEvents = 'none';
+            cocktailList.style.opacity = 0.5;
+
+            // Send the new order to the main screen
+            sendUpdate('newOrder', {
+                cocktail: cocktail,
+                totalCost: totalCost.toFixed(2)
+            });
+        }
+
+        function calculateChange() {
+            const amountGiven = parseFloat(amountGivenElement.value);
+            if (isNaN(amountGiven)) {
+                alert('Ungültiger Betrag');
+                return;
+            }
+            const change = amountGiven - totalCost;
+            if (change < 0) {
+                alert('Der gezahlte Betrag ist zu wenig');
+                return;
+            }
+            showChangeWindow(change);
+            clearOrder();
+
+            // Send the order completion update to the main screen
+            sendUpdate('orderCompleted', {
+                change: change.toFixed(2)
+            });
+        }
+
+        function showChangeWindow(change) {
+            const changeWindow = window.open('', '_blank');
+            changeWindow.document.write(`
+                <html>
+                <head>
+                    <title>Wechselgeld</title>
+                    <style>
+                        /* CSS Styles for the change window */
+                        * {
+                            box-sizing: border-box;
+                        }
+
+                        body {
+                            font-family: 'Arial', sans-serif;
+                            margin: 0;
+                            padding: 0;
+                            background-color: #FFF3E6; /* Soft orange background */
+                        }
+
+                        h1 {
+                            font-size: 28px;
+                            margin-top: 0;
+                            color: #333333;
+                            text-align: center;
+                        }
+
+                        p {
+                            font-size: 24px;
+                            margin-bottom: 20px;
+                            text-align: center;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Wechselgeld</h1>
+                    <p>Das Wechselgeld beträgt: €${change.toFixed(2)}</p>
+                </body>
+                </html>
+            `);
+        }
+
+        function clearOrder() {
+            selectedCocktail = null;
+            totalCost = 0;
+            totalCostElement.textContent = 'Gesamt: €0.00';
+            amountGivenElement.value = '';
+            cocktailList.style.pointerEvents = 'auto';
+            cocktailList.style.opacity = 1;
+        }
+
+        function goBack() {
+            window.location.href = "/";
+        }
+
+        // JavaScript code for Name Input
+        const nameInputValue = getCookie('name');
+        if (nameInputValue) {
+            nameInput.value = nameInputValue;
+            updateNameDisplay(nameInputValue);
+        }
+
+        function saveName() {
+            const name = nameInput.value.trim();
+            if (name === '') {
+                alert('Bitte geben Sie einen Namen ein');
+                return;
+            }
+            setCookie('name', name, 365);
+            updateNameDisplay(name);
+        }
+
+        function updateNameDisplay(name) {
+            nameDisplay.textContent = name;
+        }
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const cookieName = name + "=";
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.indexOf(cookieName) === 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        function connectWithCode() {
+            const code = prompt('Bitte geben Sie den Code ein:');
+            if (code) {
+                // Code handling logic goes here
+                alert(`Mit Code ${code} verbunden!`);
+            }
+        }
+    </script>
+</body>
+
+</html>

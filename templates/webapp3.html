@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Aktuelle Bestellungen</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d1e0f2;
+    }
+
+    header {
+      background-color: #FDCB9E;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #555;
+      margin: 0 auto;
+    }
+
+    .logo {
+      width: 150px;
+      height: auto;
+      max-height: 80px;
+    }
+
+    .content {
+      margin: 50px;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .box {
+      width: 400px;
+      height: 400px;
+      background-color: #FDCB9E;
+      display: inline-block;
+      margin: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+      position: relative;
+      touch-action: manipulation;
+      cursor: pointer;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+    }
+
+    .box button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px 40px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .box button:focus {
+      outline: none;
+    }
+
+    .box::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 3px;
+      background-color: #fff;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .box:hover::before {
+      opacity: 1;
+    }
+
+    .box p {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+  <script>
+    // JavaScript code to reload the page every second
+    setInterval(function() {
+      location.reload();
+    }, 15000); // Refresh the page every 1000 milliseconds (1 second)
+
+    // JavaScript code to handle the "Fertig" button click event and remove the corresponding box
+    function removeBox(boxId) {
+      const box = document.getElementById(boxId);
+      if (box) {
+        box.style.display = 'none'; // Hide the box instead of removing it
+        // Save the box state to a cookie to remember its visibility after the page reloads
+        document.cookie = `${boxId}=hidden; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+      }
+    }
+
+    // JavaScript code to restore box visibility after page reload
+    document.addEventListener('DOMContentLoaded', function() {
+      // Loop through all the boxes and check their state in cookies
+      const boxes = document.querySelectorAll('.box');
+      const cookies = document.cookie.split(';');
+      for (const box of boxes) {
+        const boxId = box.id;
+        const boxCookie = cookies.find(cookie => cookie.trim().startsWith(`${boxId}=`));
+        if (boxCookie && boxCookie.trim().endsWith('hidden')) {
+          box.style.display = 'none';
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <img class="logo" src="https://nuernberg.sabel.com/wp-content/uploads/2021/03/Logo_SABEL_Nuernberg_800px.png" alt="Logo">
+    <h1>Aktuelle Bestellungen</h1>
+  </header>
+  <div class="content">
+    <!-- Loop through the 'items' list and display each item in a box -->
+    {% for item in items %}
+      <div class="box" id="box_{{ loop.index }}" style="background-color: {{ item_color.get(item, '#FDCB9E') }};">
+        <p>{{ item }}</p>
+        <button onclick="removeBox('box_{{ loop.index }}')">Fertig</button>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
