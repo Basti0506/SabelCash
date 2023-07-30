@@ -24,7 +24,7 @@ To toggle button click sounds, use the "Tastengeräusche" checkbox.
 To switch between fullscreen and windowed mode, press F11.
 
 ## Web Application
-The Flask web application provides real-time updates of the current order status. It is accessible at http://localhost:5001/webapp2.html. The web application displays the items ordered in a visually appealing format. Ordered items along with the status can be found on http://localhost:5001/webapp3.html. A simple webapp can be found on http://localhost:5001/webapp.html 
+The Flask web application provides real-time updates of the ordered items. It is accessible at http://localhost:5001/webapp2.html. The web application displays the items ordered in a visually appealing format. Ordered items along with the status can be found on http://localhost:5001/webapp3.html. A simple webapp of the main program with the full feature-set can be found on http://localhost:5001/webapp.html 
 
 ## Database
 The app uses an SQLite database to store completed purchase history. By doing this we achieve better performance
