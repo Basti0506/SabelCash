@@ -34,3 +34,12 @@ Download and execute the installer under "Releases". Make sure to download the l
 
 ## Contributing ➕ and Issues 🆘
 Contributions to this project are welcome. If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
+
+## Future Goals📈
+1. MacOS support
+2. Android Support (Tablet)
+3. Make the program more useable in the real world (Less limited to the school. Without having to edit the file itself)
+4. Barcodes
+5. Card Payment?
+6. Deposit for cups?
+7. Making it more viable for real companies
