@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sabel Cash Web-Edition</title>
+    <style>
+
+        @font-face {
+          font-family: 'SF Pro Display'; /* Replace 'YourFontName' with the desired font name */
+          src: url('templates\Images\Fonts\SF-Pro-Display-Bold.ttf') format('truetype'); /* Replace 'your-font-file.ttf' with the actual font file name */
+          font-weight: bold; /* Specify the font weight as bold */
+        }
+
+        .Sabelfont{
+      color: rgb(0, 0, 0);
+      font-family: 'SF Pro Display', sans-serif; /* Use the font-family defined above */
+      font-weight: bold; /* Ensure that the text is bold */
+      font-size: 15px;
+}
+
+
+        h1 {
+      color: rgb(255, 255, 255);
+      font-family: 'SF Pro Display', sans-serif; /* Use the font-family defined above */
+      font-weight: bold; /* Ensure that the text is bold */
+      font-size: 40px;
+      border: 5px solid transparent;
+      text-align: center;
+}
+
+
+h2 {
+      color: rgb(255, 255, 255);
+      font-family: 'SF Pro Display', sans-serif; /* Use the font-family defined above */
+      font-weight: bold; /* Ensure that the text is bold */
+      font-size: 40px;
+      border: 5px solid transparent;
+      text-align: center;
+}
+button {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 10px;
+ font-family: inherit;
+ font-size: 13px;
+ font-weight: 500;
+ text-transform: uppercase;
+ letter-spacing: 0.4px;
+ color: #7e97b8;
+ background-color: #e0e8ef;
+ border-style: solid;
+ border-width: 2px 2px 2px 2px;
+ border-color: rgba(255, 255, 255, 0.333);
+ border-radius: 40px 40px 40px 40px;
+ padding: 16px 24px 16px 28px;
+ transform: translate(0px, 0px) rotate(0deg);
+ transition: 0.2s;
+ box-shadow: -4px -2px 16px 0px #ffffff, 4px 2px 16px 0px rgb(95 157 231 / 48%);
+ display: inline-block; /* Change from "flex" to "inline-block" */
+ margin-right: 10px; /* Add margin to create space between buttons */
+ color: rgb(0, 0, 0);
+ font-family: 'SF Pro Display', sans-serif; /* Use the font-family defined above */
+ font-weight: bold; /* Ensure that the text is bold */
+ font-size: 25px;
+}
+
+button:hover {
+ color: #516d91;
+ background-color: #E5EDF5;
+ box-shadow: -2px -1px 8px 0px #ffffff, 2px 1px 8px 0px rgb(95 157 231 / 48%);
+}
+
+button:active {
+ box-shadow: none;
+}
+
+body{
+ background: rgb(62,78,79);
+ background: linear-gradient(90deg, rgba(62,78,79,1) 3%, rgba(0,0,0,1) 100%);
+}
+
+.logo {
+      position: absolute;
+      top:0;
+      right:0;
+      width: 225px;
+      height: 100px;
+      margin-top:15px;
+      margin-right:15px;
+    }
+.name{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: auto;
+    }
+
+    </style>
+</head>
+<body>
+
+    <img class="logo" src="https://nuernberg.sabel.com/wp-content/uploads/2021/03/Logo_SABEL_Nuernberg_800px.png" alt="logo">
+
+    <h1>Cash Register App</h1>
+    <select id="username">
+        <option value="" class="Sabelfont">Kassierer auswählen</option>
+        <option value="Ben" class="Sabelfont">Ben</option>
+        <option value="Bastian" class="Sabelfont">Bastian</option>
+        <option value="Miranda" class="Sabelfont">Miranda</option>
+        <option value="Melis" class="Sabelfont">Melis</option>
+        <option value="Leart" class="Sabelfont">Leart</option>
+        <option value="Stefan" class="Sabelfont">Stefan</option>
+        <option value="Emanuel" class="Sabelfont">Emanuel</option>
+        <option value="Leopold" class="Sabelfont">Leopold</option>
+        <option value="Vincent" class="Sabelfont">Vincent</option>
+        <option value="Hayk" class="Sabelfont">Hayk</option> 
+        <option value="Lara" class="Sabelfont">Lara</option>
+        <option value="Thea" class="Sabelfont">Thea</option>
+        <option value="Kaan" class="Sabelfont">Kaan</option>
+        <option value="Danaë" class="Sabelfont">Danaë</option>
+
+    </select>
+    <button onclick="switchUser()">Schichtwechsel</button>
+
+    <h2>Items</h2>
+    <button onclick="addItem('Five Fruit', 3.50)">Five Fruit</button>
+    <button onclick="addItem('Virgin Mojito', 3.50)">Virgin Mojito</button>
+    <button onclick="addItem('Virgin Sunrise', 3.50)">Virgin Sunrise</button>
+    <button onclick="addItem('Coconut Kiss', 3.50)">Coconut Kiss</button>
+    <button onclick="addItem('Ipanema', 3.50)">Ipanema</button>
+    
+
+    <h2>Cart</h2>
+    <div id="cart"></div>
+
+    <button onclick="checkout()">Kauf abschließen</button>
+    <button onclick="clearCart()">Auswahl leeren</button>
+
+    <h2 id="usernameDisplay" class="name">Nutzername wird hier angezeigt</h2>
+<script>
+var cart = [];
+
+function switchUser() {
+    var username = document.getElementById('username').value;
+    if (username) {
+        document.getElementById('usernameDisplay').textContent = username;
+        alert('User switched to ' + username);
+    } else {
+        alert('Please select a user');
+    }
+}
+
+function addItem(name, price) {
+    cart.push({name: name, price: price});
+    updateCart();
+}
+
+function updateCart() {
+    var cartDiv = document.getElementById('cart');
+    cartDiv.innerHTML = '';
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) {
+        cartDiv.innerHTML += '<p>' + cart[i].name + ': ' + cart[i].price.toFixed(2) + '€</p>';
+        total += cart[i].price;
+    }
+    cartDiv.innerHTML += '<p>Total: ' + total.toFixed(2) + '€</p>';
+}
+
+function checkout() {
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) {
+        total += cart[i].price;
+    }
+    var givenAmount = prompt('Total is ' + total.toFixed(2) + '€. Enter given amount:');
+    var change = givenAmount - total;
+    alert('Change is ' + change.toFixed(2) + '€');
+}
+
+function clearCart() {
+    cart = [];
+    updateCart();
+}
+</script>
+
+</body>
+</html>
