@@ -30,6 +30,8 @@ This is a touch-screen optimized prototype.
 
 - Download the executable (for Windows)
 
+**Or:**
+
 ### Requirements
 
 - Python 3.8+
