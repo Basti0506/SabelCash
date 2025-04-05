@@ -1,14 +1,14 @@
-# 🧾 Sabel Cash Kassensystem 1.5-Win (Pre-Release)
+# 🧾 SabelCash 1.5 (Pre-Release)
 
 **⚠️ Pre-Release Notice:**  
-This version of *Sabel Cash Kassensystem* is a **pre-release** and may contain bugs or incomplete features. Use with caution in production environments.
+This version of *SabelCash* is a **pre-release** and may contain bugs or incomplete features. Proceed with caution.
 
 ## Overview
 
 **Sabel Cash Kassensystem** is a modern point-of-sale (POS) system built with Python using the [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) framework.  
-It features a sleek, dark-themed interface designed for quick drink selection, live cart updates, and seamless checkout with a custom numeric keypad.
+It features a sleek, dark-themed interface designed for quick drink selection, live cart updates, and a checkout with a custom numeric keypad.
 
-This is a Windows-friendly, touch-screen optimized prototype.
+This is a touch-screen optimized prototype.
 
 ---
 
@@ -16,11 +16,11 @@ This is a Windows-friendly, touch-screen optimized prototype.
 
 - 🎨 CustomTkinter-based modern UI
 - 🍹 Predefined drink options with color-coded buttons
-- 🧍 Customer-facing display with live order tracking
+- 🧍 Customer-facing display with to-be-payed amount and items
 - 💵 Custom numeric keypad for payment input
 - 💸 Auto-calculated change and total sales tracking
 - 🧼 Cart clearing and user name customization
-- 💻 Responsive design (adapts to screen height)
+- 💻 Responsive design (adapts to screen)
 
 ---
 
