@@ -28,7 +28,8 @@ This is a touch-screen optimized prototype.
 
 ## 🚀 Getting Started
 
-- Download the executable (for Windows)
+- Download the executable (for Windows) and run it.
+- Supports Linux through Wine
 
 **Or:**
 
